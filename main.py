@@ -11,7 +11,7 @@ import pickle
 with open("regression.pkl", "rb") as file:
     model = pickle.load(file)
 
-prediction = model.predict([[2, 112,68, 34.1, 91, 0.9, 25]])
+prediction = model.predict([[25]])
 print("The predicted price is", prediction[0][0])
 
 
