@@ -1,29 +1,17 @@
 import os
 import joblib
-import requests
 import uvicorn
 from fastapi import FastAPI, HTTPException, status 
 from pydantic import BaseModel, Field
+import pickle
 
-# URL where the model file is located on GitHub
-github_url = "https://github.com/Chambeline-Nkah/Maths_ML_ALU/raw/main/regression.pkl"
 
-# Download the model file
-response = requests.get(github_url)
-if response.status_code != 200:
-    raise HTTPException(status_code=500, detail="Failed to download the model file")
 
-# Define the directory path where the model file will be saved
-directory_path = "./models"
-os.makedirs(directory_path, exist_ok=True)
 
-# Save the model file to the directory
-model_path = os.path.join(directory_path, 'regression.pkl')
-with open(model_path, 'wb') as f:
-    f.write(response.content)
+with open("regression.pkl", 'rb') as file:
+    model = pickle.load(file)
 
-# Load the trained model
-model = joblib.load(model_path)
+
 
 app = FastAPI()
 
